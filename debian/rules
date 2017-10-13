@@ -8,13 +8,5 @@ override_dh_install:
 		convert "$$image" -colors 256 "$(PLYMOUTH_PATH)/$$(basename "$$image")"; \
 	done
 
-override_dh_installgsettings:
-	dh_installgsettings --priority=50
-
-binary-arch: build install
-	dh_installdeb
-	rm debian/pop-default-settings/DEBIAN/conffiles
-
 %:
-	echo "$@"
 	dh $@
