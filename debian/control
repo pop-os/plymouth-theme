@@ -33,3 +33,8 @@ Description: graphical boot animation and logger - pop-text theme
  .
  This package contains the default pop-text text theme used when no
  support for a graphical theme is found on your system.
+
+Package: pop-plymouth-timeout
+Architecture: any
+Depends: ${misc:Depends}, plymouth
+Description: Kills plymouthd if it hangs after GDM launches
