@@ -99,7 +99,7 @@ fun display_password_callback (prompt, bullets) {
     zvalue = dialog.entry.z + 1;
 
     oindex = 0;
-    for (index = 0; dialog.bullet[index] || index < bullets; index++) {
+    for (index = 0; dialog.bullet[index] || index < bullets && index < 31; index++) {
         if (!dialog.bullet[index]) {
             dialog.bullet[index].sprite = Sprite(dialog.bullet_image);
             dialog.bullet[index].x = dialog.entry.x + index * dialog.bullet_image.GetWidth();
