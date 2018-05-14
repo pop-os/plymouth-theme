@@ -7,6 +7,19 @@ Build-Depends: debhelper (>= 10), imagemagick
 Standards-Version: 3.9.8
 Homepage: https://github.com/system76/pop-plymouth-theme
 
+Package: plymouth-theme-pop-basic
+Architecture: any
+Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes
+Provides: plymouth-theme
+Breaks: pop-default-settings (<< 2)
+Replaces: pop-default-settings (<< 2)
+Description: graphical boot animation and logger - pop-basic theme
+ Plymouth is an application that runs very early in the boot process
+ (even before the root filesystem is mounted!) that provides a graphical
+ boot animation while the boot process happens in the background.
+ .
+ This package contains the default pop-basic theme.
+
 Package: plymouth-theme-pop-logo
 Architecture: any
 Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes
