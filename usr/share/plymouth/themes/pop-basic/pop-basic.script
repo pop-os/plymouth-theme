@@ -1,7 +1,3 @@
-logo.image = Image("logo.png");
-logo.sprite = Sprite(logo.image);
-logo.opacity_angle = 0;
-
 cursor.image = Image("cursor.png").Scale(2, 12);
 cursor.sprite = Sprite(cursor.image);
 cursor.opacity_angle = 0;
@@ -13,23 +9,11 @@ ycenter = Window.GetY() + Window.GetHeight() / 2;
 
 fun refresh_callback () {
   if (status == "normal") {
-    logo.opacity_angle += ((2 * 3.14) / 50) * 0.5;  # 0.5 HZ
-    min_opacity = 0.3;
-    opacity = (Math.Cos(logo.opacity_angle) + 1) / 2;
-    opacity *= 1 - min_opacity;
-    opacity += min_opacity;
-    logo.sprite.SetX (Window.GetX() + Window.GetWidth()  / 2 - logo.image.GetWidth()  / 2);
-    logo.sprite.SetY (Window.GetY() + Window.GetHeight() / 2 - logo.image.GetHeight() / 2);
-    logo.sprite.SetOpacity (opacity);
     if (Plymouth.GetMode() == "shutdown") {
-      Window.SetBackgroundTopColor(0.33, 0.33, 0.33);
-      Window.SetBackgroundBottomColor(0.33, 0.33, 0.33);
+      Window.SetBackgroundTopColor(0.22, 0.21, 0.2);
+      Window.SetBackgroundBottomColor(0.22, 0.21, 0.2);
     }
   } else {
-    logo.sprite.SetX (0);
-    logo.sprite.SetY (0);
-    logo.sprite.SetOpacity (0);
-
     if (status == "password") {
       cursor.opacity_angle += ((2 * 3.14) / 50) * 0.5;  # 0.5 HZ
       opacity = (Math.Cos(cursor.opacity_angle) + 1) / 2;
@@ -46,29 +30,22 @@ Plymouth.SetRefreshFunction (refresh_callback);
 status = "normal";
 
 fun dialog_setup () {
-  Window.SetBackgroundTopColor(0.33, 0.33, 0.33);
-  Window.SetBackgroundBottomColor(0.33, 0.33, 0.33);
+  Window.SetBackgroundTopColor(0.22, 0.21, 0.2);
+  Window.SetBackgroundBottomColor(0.22, 0.21, 0.2);
 
-  local.logo;
   local.lock;
   local.entry;
   local.cursor;
   local.arrow;
 
-  logo.image = Image("logo.png").Scale(128, 128);
   lock.image = Image("lock.png").Scale(48, 48);
   entry.image = Image("entry.png").Scale(400, 30);
   arrow.image = Image("return.png").Scale(16, 16);
 
   column_padding = 16;
   row_padding = 32;
-  height = logo.image.GetHeight() + entry.image.GetHeight() + row_padding;
+  height = entry.image.GetHeight() + row_padding;
   ystart = ycenter + (height / 2);
-
-  logo.sprite = Sprite(logo.image);
-  logo.x = xcenter - (logo.image.GetWidth() / 2);
-  logo.y = ystart - logo.image.GetHeight() - (row_padding + entry.image.GetHeight());
-  logo.sprite.SetPosition(logo.x, logo.y, 1000);
 
   lock.sprite = Sprite(lock.image);
   lock.x = xcenter - (lock.image.GetWidth() + entry.image.GetWidth()) / 2;
@@ -86,7 +63,6 @@ fun dialog_setup () {
   arrow.sprite.SetPosition(arrow.x, arrow.y, 1000);
 
   global.dialog.height = height;
-  global.dialog.logo = logo;
   global.dialog.lock = lock;
   global.dialog.entry = entry;
   global.dialog.arrow = arrow;
@@ -95,7 +71,6 @@ fun dialog_setup () {
 }
 
 fun dialog_opacity (opacity) {
-  dialog.logo.sprite.SetOpacity (opacity);
   dialog.lock.sprite.SetOpacity (opacity);
   dialog.entry.sprite.SetOpacity (opacity);
   dialog.arrow.sprite.SetOpacity (opacity);
