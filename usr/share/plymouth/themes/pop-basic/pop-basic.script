@@ -9,6 +9,7 @@ ycenter = Window.GetY() + Window.GetHeight() / 2;
 
 fun refresh_callback () {
   if (status == "normal") {
+    cursor.sprite.SetOpacity (0);
     if (Plymouth.GetMode() == "shutdown") {
       Window.SetBackgroundTopColor(0.22, 0.21, 0.2);
       Window.SetBackgroundBottomColor(0.22, 0.21, 0.2);
