@@ -33,6 +33,11 @@ case "$1" in
 	then
 	    update-grub2
 	fi
+
+	if [ -e /etc/kernelstub/configuration ] && which kernelstub >/dev/null 2>&1
+	then
+	    kernelstub --verbose --add-options splash
+	fi
 	;;
 
     abort-upgrade|abort-deconfigure|abort-remove)
