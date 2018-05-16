@@ -1,4 +1,23 @@
-cursor.image = Image("cursor.png").Scale(2, 12);
+scale_factor;
+
+# Base the scaling factor on the shortest side, in case of exotic aspect ratios.
+if (Window.GetHeight() > Window.GetWidth()) {
+  scale_factor = Window.GetWidth() / 1280;
+} else {
+  scale_factor = Window.GetHeight() / 720;
+}
+
+if (scale_factor < 1)
+  scale_factor = 1;
+
+fun scale (input) {
+  return input * scale_factor;
+}
+
+column_padding = scale(16);
+row_padding = scale(32);
+
+cursor.image = Image("cursor.png").Scale(scale(2), scale(12));
 cursor.sprite = Sprite(cursor.image);
 cursor.opacity_angle = 0;
 
@@ -39,12 +58,13 @@ fun dialog_setup () {
   local.cursor;
   local.arrow;
 
-  lock.image = Image("lock.png").Scale(48, 48);
-  entry.image = Image("entry.png").Scale(400, 30);
-  arrow.image = Image("return.png").Scale(16, 16);
+  lock_size = scale(48);
+  arrow_size = scale(16);
 
-  column_padding = 16;
-  row_padding = 32;
+  lock.image = Image("lock.png").Scale(lock_size, lock_size);
+  entry.image = Image("entry.png").Scale(scale(400), scale(30));
+  arrow.image = Image("return.png").Scale(arrow_size, arrow_size);
+
   height = entry.image.GetHeight() + row_padding;
   ystart = ycenter + (height / 2);
 
@@ -63,11 +83,12 @@ fun dialog_setup () {
   arrow.y = ystart - 4 - arrow.image.GetHeight() / 2;
   arrow.sprite.SetPosition(arrow.x, arrow.y, 1000);
 
+  bullet_size = scale(12);
   global.dialog.height = height;
   global.dialog.lock = lock;
   global.dialog.entry = entry;
   global.dialog.arrow = arrow;
-  global.dialog.bullet_image = Image("bullet.png");
+  global.dialog.bullet_image = Image("bullet.png").Scale(bullet_size, bullet_size);
   dialog_opacity (1);
 }
 
@@ -96,7 +117,7 @@ fun display_password_callback (prompt, bullets) {
 
     yvalue = dialog.entry.y + dialog.entry.image.GetHeight() / 2
       - dialog.bullet_image.GetHeight() / 2
-      - 2;
+      - scale(2);
     zvalue = dialog.entry.z + 1;
 
     oindex = 0;
@@ -115,7 +136,7 @@ fun display_password_callback (prompt, bullets) {
         }
     }
 
-    xvalue = dialog.entry.x + oindex * dialog.bullet_image.GetWidth() + 4;
+    xvalue = dialog.entry.x + oindex * dialog.bullet_image.GetWidth() + scale(4);
     cursor.sprite.SetPosition(xvalue, yvalue, zvalue);
     display_message_callback(prompt);
 }
@@ -127,10 +148,15 @@ Plymouth.SetDisplayPasswordFunction(display_password_callback);
 
 fun display_message_callback (text) {
   text_image = Image.Text(text, 1, 1, 1);
+  text_image = text_image.Scale(
+    scale(text_image.GetWidth()),
+    scale(text_image.GetHeight())
+  );
+
   message_sprite.SetImage(text_image);
   message_sprite.SetPosition(
     xcenter - text_image.GetWidth() / 2,
-    ycenter + dialog.height / 2 + 30,
+    ycenter + dialog.height / 2 + scale(30),
     10000
   );
 }
