@@ -7,6 +7,8 @@ if (Window.GetHeight() > Window.GetWidth()) {
   scale_factor = Window.GetHeight() / 720;
 }
 
+scale_factor = Math.Int(scale_factor);
+
 if (scale_factor < 1)
   scale_factor = 1;
 
