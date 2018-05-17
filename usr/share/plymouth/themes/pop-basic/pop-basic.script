@@ -1,14 +1,8 @@
-scale_factor;
+scale_factor = 1;
 
-# Base the scaling factor on the shortest side, in case of exotic aspect ratios.
-if (Window.GetHeight() > Window.GetWidth()) {
-  scale_factor = Window.GetWidth() / 1280;
-} else {
-  scale_factor = Window.GetHeight() / 720;
+if (Window.GetHeight() > 1440) {
+  scale_factor = 2;
 }
-
-if (scale_factor < 1)
-  scale_factor = 1;
 
 fun scale (input) {
   return input * scale_factor;
