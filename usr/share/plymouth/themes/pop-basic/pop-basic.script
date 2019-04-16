@@ -69,6 +69,8 @@ fun set_updates_view () {
     10001
   );
 
+  logo.sprite.SetOpacity (1);
+
   # TODO: https://gitlab.freedesktop.org/plymouth/plymouth/issues/79
   # progress_box.sprite.SetOpacity (1);
   # progress_bar.sprite.SetOpacity (1);
@@ -140,7 +142,6 @@ fun dialog_opacity (opacity) {
 }
 
 fun display_normal_callback () {
-  global.status = "normal";
   if (global.dialog)
     dialog_opacity (0);
 }
@@ -214,6 +215,7 @@ Plymouth.SetDisplayPasswordFunction(display_password_callback);
 fun display_message_callback (text) {
   if (status != "updates" && text == "system-updates") {
     status = "updates";
+    dialog_opacity (0);
   } else if (text == "system-updates-stop") {
     status = "normal";
   }
