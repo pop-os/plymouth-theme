@@ -1,6 +1,12 @@
+active_status = "normal";
 scale_factor = 1;
+logo_size = 256;
 
-if (Window.GetHeight() > 1440) {
+window_height = Window.GetHeight ();
+
+if (window_height < 1080) {
+  logo_size = 128;
+} else if (window_height > 1440) {
   scale_factor = 2;
 }
 
@@ -8,32 +14,54 @@ fun scale (input) {
   return input * scale_factor;
 }
 
-column_padding = scale(16);
-row_padding = scale(32);
-
-cursor.image = Image("cursor.png").Scale(scale(2), scale(12));
-cursor.sprite = Sprite(cursor.image);
-cursor.opacity_angle = 0;
-
-message_sprite = Sprite();
+column_padding = scale (16);
+row_padding = scale (32);
 
 xcenter = Window.GetX() + Window.GetWidth() / 2;
 ycenter = Window.GetY() + Window.GetHeight() / 2;
 
+logo.image = Image ("logo.png").Scale (scale (logo_size), scale (logo_size));
+logo.sprite = Sprite (logo.image);
+logo.sprite.SetOpacity (0);
+logo.sprite.SetPosition (
+  xcenter - logo.image.GetWidth () / 2,
+  ycenter - logo.image.GetHeight () - scale(32),
+  10001
+);
+
+cursor.image = Image ("cursor.png").Scale (scale (2), scale (12));
+cursor.sprite = Sprite (cursor.image);
+cursor.opacity_angle = 0;
+
+message_sprite = Sprite ();
+
+Window.SetBackgroundTopColor(0.22, 0.21, 0.2);
+Window.SetBackgroundBottomColor(0.22, 0.21, 0.2);
+
+debug_status.sprite = Sprite ();
+debug_status.sprite.SetOpacity (1);
+debug_status.sprite.SetPosition (xcenter, 100, 10000);
+
+# Applies a breathing pattern to the opacity of an element.
+#
+# - `element` should contain a `sprite` with an `opacity_angle`.
+# - The `rate` defines the frequency in Hz
+fun breathe (element, rate) {
+  element.opacity_angle += ((2 * 3.14) / 50) * rate;
+  opacity = (Math.Cos(element.opacity_angle) + 1) / 2;
+  element.sprite.SetOpacity (opacity);
+}
+
 fun refresh_callback () {
-  if (status == "normal") {
-    cursor.sprite.SetOpacity (0);
-    if (Plymouth.GetMode() == "shutdown") {
-      Window.SetBackgroundTopColor(0.22, 0.21, 0.2);
-      Window.SetBackgroundBottomColor(0.22, 0.21, 0.2);
-    }
-  } else {
-    if (status == "password") {
-      cursor.opacity_angle += ((2 * 3.14) / 50) * 0.5;  # 0.5 HZ
-      opacity = (Math.Cos(cursor.opacity_angle) + 1) / 2;
-      opacity *= 1;
-      cursor.sprite.SetOpacity (opacity);
-    }
+  # Hide the cursor and logo by default on each display refresh
+  cursor.sprite.SetOpacity (0);
+  logo.sprite.SetOpacity (0);
+
+  # Show the logo if the status is `updates`, and show the cursor if `password`.
+  if (active_status == "updates") {
+    logo.sprite.SetOpacity (1);
+  } else if (active_status == "password") {
+    breathe (cursor, 0.5);
   }
 }
 
@@ -41,12 +69,7 @@ Plymouth.SetRefreshFunction (refresh_callback);
 
 #----------------------------------------- Dialogue --------------------------------
 
-status = "normal";
-
 fun dialog_setup () {
-  Window.SetBackgroundTopColor(0.22, 0.21, 0.2);
-  Window.SetBackgroundBottomColor(0.22, 0.21, 0.2);
-
   local.lock;
   local.entry;
   local.cursor;
@@ -97,42 +120,45 @@ fun dialog_opacity (opacity) {
 }
 
 fun display_normal_callback () {
-  global.status = "normal";
-  if (global.dialog)
+  if (global.dialog) {
     dialog_opacity (0);
+  }
+
+  active_status = "normal";
 }
 
 fun display_password_callback (prompt, bullets) {
-  global.status = "password";
-  if (!global.dialog)
+  active_status = "password";
+  if (!global.dialog) {
     dialog_setup();
-  else
+  } else {
     dialog_opacity(1);
+  }
 
-    yvalue = dialog.entry.y + dialog.entry.image.GetHeight() / 2
-      - dialog.bullet_image.GetHeight() / 2
-      - scale(2);
-    zvalue = dialog.entry.z + 1;
+  yvalue = dialog.entry.y + dialog.entry.image.GetHeight() / 2
+    - dialog.bullet_image.GetHeight() / 2
+    - scale(2);
+  zvalue = dialog.entry.z + 1;
 
-    oindex = 0;
-    for (index = 0; dialog.bullet[index] || index < bullets && index < 31; index++) {
-        if (!dialog.bullet[index]) {
-            dialog.bullet[index].sprite = Sprite(dialog.bullet_image);
-            dialog.bullet[index].x = dialog.entry.x + index * dialog.bullet_image.GetWidth();
-            dialog.bullet[index].sprite.SetPosition(dialog.bullet[index].x, yvalue, zvalue);
-        }
-
-        if (index < bullets) {
-          oindex = index + 1;
-          dialog.bullet[index].sprite.SetOpacity(1);
-        } else {
-          dialog.bullet[index].sprite.SetOpacity(0);
-        }
+  oindex = 0;
+  for (index = 0; dialog.bullet[index] || index < bullets && index < 31; index++) {
+    if (!dialog.bullet[index]) {
+        dialog.bullet[index].sprite = Sprite(dialog.bullet_image);
+        dialog.bullet[index].x = dialog.entry.x + index * dialog.bullet_image.GetWidth();
+        dialog.bullet[index].sprite.SetPosition(dialog.bullet[index].x, yvalue, zvalue);
     }
 
-    xvalue = dialog.entry.x + oindex * dialog.bullet_image.GetWidth() + scale(4);
-    cursor.sprite.SetPosition(xvalue, yvalue, zvalue);
-    display_message_callback(prompt);
+    if (index < bullets) {
+      oindex = index + 1;
+      dialog.bullet[index].sprite.SetOpacity(1);
+    } else {
+      dialog.bullet[index].sprite.SetOpacity(0);
+    }
+  }
+
+  xvalue = dialog.entry.x + oindex * dialog.bullet_image.GetWidth() + scale(4);
+  cursor.sprite.SetPosition(xvalue, yvalue, zvalue);
+  display_message_callback(prompt);
 }
 
 Plymouth.SetDisplayNormalFunction(display_normal_callback);
@@ -141,18 +167,34 @@ Plymouth.SetDisplayPasswordFunction(display_password_callback);
 #----------------------------------------- Message --------------------------------
 
 fun display_message_callback (text) {
+  if (text == "system-updates") {
+    active_status = "updates";
+    logo.sprite.SetOpacity (1);
+  } else if (text == "system-updates-stop") {
+      active_status = "normal";
+      return;
+  }
+
   text_image = Image.Text(text, 1, 1, 1);
   text_image = text_image.Scale(
     scale(text_image.GetWidth()),
     scale(text_image.GetHeight())
   );
 
+  if (active_status == "updates") {
+    ypos = ycenter + text_image.GetHeight() / 2 + scale(30);
+  } else {
+    ypos = ycenter + dialog.height / 2 + scale(30);
+  }
+
   message_sprite.SetImage(text_image);
   message_sprite.SetPosition(
     xcenter - text_image.GetWidth() / 2,
-    ycenter + dialog.height / 2 + scale(30),
+    ypos,
     10000
   );
+
+  message_sprite.SetOpacity (1);
 }
 
 fun hide_message_callback (text) {
