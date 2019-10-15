@@ -170,6 +170,7 @@ fun display_message_callback (text) {
   if (text == "system-updates") {
     active_status = "updates";
     logo.sprite.SetOpacity (1);
+    return;
   } else if (text == "system-updates-stop") {
       active_status = "normal";
       return;
