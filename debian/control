@@ -8,7 +8,7 @@ Standards-Version: 3.9.8
 Homepage: https://github.com/system76/pop-plymouth-theme
 
 Package: plymouth-theme-pop-basic
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes
 Provides: plymouth-theme
 Breaks: pop-default-settings (<< 2)
@@ -21,7 +21,7 @@ Description: graphical boot animation and logger - pop-basic theme
  This package contains the default pop-basic theme.
 
 Package: plymouth-theme-pop-logo
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes
 Provides: plymouth-theme
 Breaks: pop-default-settings (<< 2)
@@ -34,7 +34,7 @@ Description: graphical boot animation and logger - pop-logo theme
  This package contains the default pop-logo theme.
 
 Package: plymouth-theme-pop-text
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, plymouth, plymouth-theme-ubuntu-text
 Provides: plymouth-theme
 Breaks: pop-default-settings (<< 2)
@@ -48,6 +48,6 @@ Description: graphical boot animation and logger - pop-text theme
  support for a graphical theme is found on your system.
 
 Package: pop-plymouth-timeout
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, plymouth
 Description: Kills plymouthd if it hangs after GDM launches
