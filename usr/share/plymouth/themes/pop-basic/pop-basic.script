@@ -35,8 +35,9 @@ cursor.opacity_angle = 0;
 
 message_sprite = Sprite ();
 
-Window.SetBackgroundTopColor(0.22, 0.21, 0.2);
-Window.SetBackgroundBottomColor(0.22, 0.21, 0.2);
+# 0x36322f = 0.2117647, 0.1960784, 0.1843137
+Window.SetBackgroundTopColor(0.2117647, 0.1960784, 0.1843137);
+Window.SetBackgroundBottomColor(0.2117647, 0.1960784, 0.1843137);
 
 debug_status.sprite = Sprite ();
 debug_status.sprite.SetOpacity (1);

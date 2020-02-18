@@ -9,5 +9,5 @@ HorizontalAlignment=.5
 VerticalAlignment=.5
 Transition=merge-fade
 TransitionDuration=.5
-BackgroundStartColor=0x2e2927
-BackgroundEndColor=0x2e2927
+BackgroundStartColor=0x36322f
+BackgroundEndColor=0x36322f
