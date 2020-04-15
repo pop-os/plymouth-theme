@@ -46,7 +46,7 @@ case "$1" in
 
 	if [ -e /etc/kernelstub/configuration ] && which kernelstub >/dev/null 2>&1
 	then
-	    kernelstub --verbose --add-options splash
+	    kernelstub --verbose --preserve-live-mode --add-options splash
 	fi
 	;;
 
