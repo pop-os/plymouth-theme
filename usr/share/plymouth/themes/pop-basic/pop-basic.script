@@ -177,7 +177,7 @@ fun display_message_callback (text) {
       return;
   }
 
-  text_image = Image.Text(text, 1, 1, 1);
+  text_image = Image.Text(text, 1, 1, 1, 1, "Fira Sans, Regular 11");
   text_image = text_image.Scale(
     scale(text_image.GetWidth()),
     scale(text_image.GetHeight())

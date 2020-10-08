@@ -9,7 +9,7 @@ Homepage: https://github.com/system76/pop-plymouth-theme
 
 Package: plymouth-theme-pop-basic
 Architecture: all
-Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes
+Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes, pop-fonts
 Provides: plymouth-theme
 Breaks: pop-default-settings (<< 2)
 Replaces: pop-default-settings (<< 2)
