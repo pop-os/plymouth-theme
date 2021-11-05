@@ -17,8 +17,8 @@ fun scale (input) {
 column_padding = scale (16);
 row_padding = scale (32);
 
-xcenter = Window.GetX() + Window.GetWidth() / 2;
-ycenter = Window.GetY() + Window.GetHeight() / 2;
+xcenter = Window.GetX() + Window.GetWidth(0) / 2;
+ycenter = Window.GetY() + Window.GetHeight(0) / 2;
 
 logo.image = Image ("logo.png").Scale (scale (logo_size), scale (logo_size));
 logo.sprite = Sprite (logo.image);
