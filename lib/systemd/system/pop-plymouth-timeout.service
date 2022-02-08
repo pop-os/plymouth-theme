@@ -1,7 +1,0 @@
-[Unit]
-Description=Pop Plymouth Timeout
-
-After=rc-local.service plymouth-start.service systemd-user-sessions.service gdm.service
-
-[Service]
-ExecStart=/bin/bash -c '/bin/sleep 5 && /usr/bin/killall plymouthd || /bin/true'
