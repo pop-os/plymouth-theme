@@ -1,53 +1,26 @@
 Source: pop-plymouth-theme
 Section: x11
 Priority: optional
-Maintainer: Jeremy Soller <jeremy@system76.com>
-Uploaders: Ian Santopietro <ian@system76.com>
-Build-Depends: debhelper (>= 10), imagemagick
-Standards-Version: 3.9.8
-Homepage: https://github.com/system76/pop-plymouth-theme
+Maintainer: 13r0ck <bnr@tuta.io>
+Build-Depends: debhelper (>= 10.5.1)
+Standards-Version: 4.5.0
+
+Package: pop-plymouth-theme
+Architecture: all
+Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-theme-spinner, pop-fonts
+Replaces: plymouth-theme-pop-basic (<< 2.0.2~)
+Breaks: plymouth-theme-pop-basic (<< 2.0.2~)
+Description: graphical boot animation and logger
+ Plymouth is an application that runs very early in the boot process
+ (even before the root filesystem is mounted!) that provides a graphical
+ boot animation while the boot process happens in the background.
+ .
+ This package contains the Pop!_OS splash theme for Plymouth.
 
 Package: plymouth-theme-pop-basic
+Depends: pop-plymouth-theme, ${misc:Depends}
 Architecture: all
-Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes, pop-fonts
-Provides: plymouth-theme
-Breaks: pop-default-settings (<< 2)
-Replaces: pop-default-settings (<< 2)
-Description: graphical boot animation and logger - pop-basic theme
- Plymouth is an application that runs very early in the boot process
- (even before the root filesystem is mounted!) that provides a graphical
- boot animation while the boot process happens in the background.
- .
- This package contains the default pop-basic theme.
-
-Package: plymouth-theme-pop-logo
-Architecture: all
-Depends: ${misc:Depends}, plymouth, plymouth-label, plymouth-themes
-Provides: plymouth-theme
-Breaks: pop-default-settings (<< 2)
-Replaces: pop-default-settings (<< 2)
-Description: graphical boot animation and logger - pop-logo theme
- Plymouth is an application that runs very early in the boot process
- (even before the root filesystem is mounted!) that provides a graphical
- boot animation while the boot process happens in the background.
- .
- This package contains the default pop-logo theme.
-
-Package: plymouth-theme-pop-text
-Architecture: all
-Depends: ${misc:Depends}, plymouth, plymouth-theme-ubuntu-text
-Provides: plymouth-theme
-Breaks: pop-default-settings (<< 2)
-Replaces: pop-default-settings (<< 2)
-Description: graphical boot animation and logger - pop-text theme
- Plymouth is an application that runs very early in the boot process
- (even before the root filesystem is mounted!) that provides a graphical
- boot animation while the boot process happens in the background.
- .
- This package contains the default pop-text text theme used when no
- support for a graphical theme is found on your system.
-
-Package: pop-plymouth-timeout
-Architecture: all
-Depends: ${misc:Depends}, plymouth
-Description: Kills plymouthd if it hangs after GDM launches
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.

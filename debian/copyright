@@ -1,7 +1,0 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: pop-plymouth-theme
-Source: https://github.com/system76/pop-plymouth-theme
-
-Files: *
-Copyright: System76
-License: GPL-3+
