@@ -1,5 +1,8 @@
 debian/pop-plymouth-theme.debhelper.log
 debian/pop-plymouth-theme.substvars
 debian/pop-plymouth-theme/
+debian/plymouth-theme-pop-basic.debhelper.log
+debian/plymouth-theme-pop-basic.substvars
+debian/plymouth-theme-pop-basic/
 debian/.debhelper/
 debian/files

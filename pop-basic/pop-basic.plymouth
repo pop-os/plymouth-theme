@@ -1,5 +1,5 @@
 [Plymouth Theme]
-Name=Spinner
+Name=Pop Basic
 Description=Re-Write of Pop!_OS decryption screen using two-step rather than plymouth script.
 ModuleName=two-step
 
