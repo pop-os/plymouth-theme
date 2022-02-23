@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Based on part of the behavior from Ubuntu's /usr/share/initramfs-tools/hooks/plymouth
+
+set -e
+
+mkdir -p "${DESTDIR}/usr/share/fonts/truetype/fira"
+cp -a /usr/share/fonts/opentype/fira/FiraSans-Regular.otf "${DESTDIR}/usr/share/fonts/fira"
+fc-cache -s -y "${DESTDIR}" > /dev/null 2>&1

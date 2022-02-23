@@ -4,8 +4,8 @@ Description=Re-Write of Pop!_OS decryption screen using two-step rather than ply
 ModuleName=two-step
 
 [two-step]
-Font=FiraSans-Regular 12
-TitleFont=Cantarell Light 30
+Font=Fira Sans Regular 11
+TitleFont=Fira Sans Regular 11
 ImageDir=/usr/share/plymouth/themes/pop-basic
 DialogHorizontalAlignment=.5
 DialogVerticalAlignment=.5
@@ -23,7 +23,7 @@ ProgressBarBackgroundColor=0x606060
 ProgressBarForegroundColor=0xffffff
 DialogClearsFirmwareBackground=true
 MessageBelowAnimation=true
-MessageBelowAnimationDistance=80
+MessageBelowAnimationDistance=10
 CursorAnimation=breath
 CursorAnimationSpeed=7
 
