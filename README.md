@@ -40,12 +40,6 @@ If you want to test this is theme in your running X11 session, you'll need the f
 
 ⚠️ Plymouth draws over your desktop. Please note that you will need Terminal 2 on a different workspace to close Plymouth. ⚠️
 
-If you want to take screenshots, you should quit Wingpanel before
-
-```bash
-killall wingpanel
-```
-
 ### Terminal 1
 
 #### Tab 1
