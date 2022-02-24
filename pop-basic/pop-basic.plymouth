@@ -46,11 +46,9 @@ Title=Installing Updates...
 SubTitle=Do not turn off your computer
 
 [system-upgrade]
-SuppressMessages=true
+SuppressMessages=false
 ProgressBarShowPercentComplete=true
 UseProgressBar=true
-Title=Upgrading System...
-SubTitle=Do not turn off your computer
 
 [firmware-upgrade]
 SuppressMessages=true
