@@ -47,7 +47,7 @@ SubTitle=Do not turn off your computer
 
 [system-upgrade]
 SuppressMessages=false
-ProgressBarShowPercentComplete=true
+ProgressBarShowPercentComplete=false
 UseProgressBar=true
 
 [firmware-upgrade]
