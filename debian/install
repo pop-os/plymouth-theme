@@ -1,2 +1,2 @@
 pop-basic/ usr/share/plymouth/themes/
-usr/share/initramfs-tools/hooks/plymouth-pop
+usr/lib/dracut/modules.d/45plymouth-pop

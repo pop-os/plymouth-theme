@@ -20,13 +20,7 @@ case "$1" in
     configure)
 	update-alternatives \
 		--install /usr/share/plymouth/themes/default.plymouth default.plymouth \
-		/usr/share/plymouth/themes/pop-basic/pop-basic.plymouth 200 \
-
-	if which update-initramfs >/dev/null 2>&1
-	then
-        echo FRAMEBUFFER=y | tee /etc/initramfs-tools/conf.d/splash
-	    update-initramfs -u
-	fi
+		/usr/share/plymouth/themes/pop-basic/pop-basic.plymouth 200
 	;;
 
     abort-upgrade|abort-deconfigure|abort-remove)
